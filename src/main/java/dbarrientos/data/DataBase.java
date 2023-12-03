@@ -1,4 +1,5 @@
 package dbarrientos.data;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,12 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DataBase {
 
-	protected Connection connection = null;
-	private static final String PROPERTIES_FILE_NAME = "dbarrientos/resources/GlobalData.properties";
+	protected static Connection connection;
+	private static final String PROPERTIES_FILE_NAME = "/dbarrientos/resources/GlobalData.properties";
 	private static Map<String, String> DATABASE_PROPERTIES;
 
 	public DataBase() {
@@ -69,4 +72,24 @@ public class DataBase {
 		return null;
 	}
 
+	protected PreparedStatement prepareStatement(String statement) throws SQLException {
+		return connection.prepareStatement(statement);
+	}
+
+	protected int executeUpdate(PreparedStatement statement) {
+		try {
+			statement.executeUpdate();
+			return statement.getUpdateCount();
+		} catch (SQLException ex) {
+			return 0;
+		}
+	}
+
+	protected ResultSet executeQuery(PreparedStatement statement) {
+		try {
+			return statement.executeQuery();
+		} catch (SQLException ex) {
+		}
+		return null;
+	}
 }
