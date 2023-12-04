@@ -1,0 +1,10 @@
+[
+    {
+      "email" : "standard_user",
+      "password": "secret_sauce",
+      "product" : "Sauce Labs Bolt T-Shirt",
+      "firstN":"David",
+      "LastN":"Barrientos",
+      "zip" :"20931"
+    }
+    ]
