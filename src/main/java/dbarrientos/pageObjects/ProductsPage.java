@@ -1,6 +1,6 @@
 package dbarrientos.pageObjects;
 
-import java.util.function.Predicate;
+
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ProductsPage extends AbstractPage {
 	WebDriver driver;
-
+	static final String titleText ="Products" ;
 	public ProductsPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -23,6 +23,8 @@ public class ProductsPage extends AbstractPage {
 	List<WebElement> products;
 	@FindBy(id = "shopping_cart_container")
 	WebElement cart;
+	@FindBy(css = ".title")
+	WebElement title;
 
 	By productsBy = By.cssSelector(".inventory_item_description");
 	By addToCart = By.cssSelector("button.btn_inventory");
@@ -59,6 +61,11 @@ public class ProductsPage extends AbstractPage {
 		cart.click();
 		CartPage cartPage = new CartPage(driver);
 		return cartPage;
+	}
+
+	public boolean checkTitle() {
+		Boolean match = title.getText().equals(titleText);
+		return match;
 	}
 
 }
