@@ -1,4 +1,5 @@
 package dbarrientos.pageObjects;
+
 import java.util.function.Predicate;
 import java.util.List;
 
@@ -20,13 +21,12 @@ public class ProductsPage extends AbstractPage {
 
 	@FindBy(css = ".inventory_item")
 	List<WebElement> products;
-	@FindBy(id="shopping_cart_container")
-			WebElement cart;
+	@FindBy(id = "shopping_cart_container")
+	WebElement cart;
 
 	By productsBy = By.cssSelector(".inventory_item_description");
-	By addToCart = By.id(".button.btn_inventory");
+	By addToCart = By.cssSelector("button.btn_inventory");
 	By remove = By.id("remove-sauce-labs-onesie");
-	
 
 	public List<WebElement> getProductList() {
 		int waitTime = 2;
@@ -38,7 +38,8 @@ public class ProductsPage extends AbstractPage {
 		WebElement prod = getProductList().stream().filter(
 				product -> product.findElement(By.cssSelector(".inventory_item_name")).getText().equals(productName))
 				.findFirst().orElse(null);
-		return prod;
+		WebElement item = prod.findElement(By.xpath("./child::div[2]"));
+		return item;
 	}
 
 	public void addProduct(String productName) throws InterruptedException {
@@ -59,14 +60,5 @@ public class ProductsPage extends AbstractPage {
 		CartPage cartPage = new CartPage(driver);
 		return cartPage;
 	}
-	
-	   private Predicate<WebElement> findAddToCard = new Predicate<WebElement>() 
-       {
-           @Override
-           public boolean test(WebElement element) {
-            
-                   return true;
-             
-           }
-       };
+
 }

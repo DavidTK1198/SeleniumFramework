@@ -13,7 +13,7 @@ public class CartPage extends AbstractPage {
 	@FindBy(id = "checkout")
 	WebElement checkoutButton;
 
-	@FindBy(css = ".cart_item_label :nth-child(2)")
+	@FindBy(css = ".inventory_item_name")
 	private List<WebElement> cartProducts;
 
 	public CartPage(WebDriver driver) {
